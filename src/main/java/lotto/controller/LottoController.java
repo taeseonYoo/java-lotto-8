@@ -5,7 +5,7 @@ import lotto.model.Lotto;
 import lotto.model.LottoMachine;
 import lotto.infra.RandomNumberGenerator;
 import lotto.model.Amount;
-import lotto.model.Parser;
+import lotto.utils.Parser;
 import lotto.model.WinningNumbers;
 import lotto.view.Input;
 import lotto.view.Output;
