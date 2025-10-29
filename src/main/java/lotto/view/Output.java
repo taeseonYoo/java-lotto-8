@@ -36,7 +36,6 @@ public final class Output {
         printEmptyLine();
         System.out.printf(LOTTO_QUANTITY_MESSAGE, lottoMachine.getIssuedLottoCount());
         printEmptyLine();
-        //TODO 로또 번호 내역
         List<Lotto> history = lottoMachine.getHistory();
         history.stream()
                 .map(lotto -> lotto.getNumbers().stream()
