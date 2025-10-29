@@ -2,7 +2,7 @@ package lotto.controller;
 
 import lotto.model.LottoMachine;
 import lotto.model.NumberGenerator;
-import lotto.RandomNumberGenerator;
+import lotto.infra.RandomNumberGenerator;
 import lotto.model.Amount;
 import lotto.view.Input;
 import lotto.view.Output;

@@ -1,12 +1,13 @@
 package lotto.model;
 
+import static lotto.constants.LottoRules.LOTTO_MAX_NUMBER;
+import static lotto.constants.LottoRules.LOTTO_MIN_NUMBER;
+
 import java.util.Collections;
 import java.util.List;
+import lotto.constants.LottoRules;
 
 public class Lotto {
-    private static final int LOTTO_MIN_NUMBER = 1;
-    private static final int LOTTO_MAX_NUMBER = 45;
-    private static final int LOTTO_COUNT = 6;
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -21,7 +22,7 @@ public class Lotto {
     }
 
     private void verifyNumberDuplication(List<Integer> numbers) {
-        if (numbers.stream().distinct().count() != LOTTO_COUNT) {
+        if (numbers.stream().distinct().count() != LottoRules.LOTTO_COUNT) {
             throw new IllegalArgumentException("로또 번호는 중복되지 않은 6개로 구성되어야 합니다.");
         }
     }

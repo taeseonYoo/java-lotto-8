@@ -1,14 +1,15 @@
 package lotto.model;
 
+import static lotto.constants.LottoRules.LOTTO_COUNT;
+import static lotto.constants.LottoRules.LOTTO_MAX_NUMBER;
+import static lotto.constants.LottoRules.LOTTO_MIN_NUMBER;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoMachine {
-    private static final int LOTTO_MIN_NUMBER = 1;
-    private static final int LOTTO_MAX_NUMBER = 45;
-    private static final int LOTTO_COUNT = 6;
     private final List<Lotto> lottos;
 
     public LottoMachine(int count, NumberGenerator numberGenerator) {
