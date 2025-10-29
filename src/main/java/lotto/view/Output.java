@@ -1,7 +1,9 @@
 package lotto.view;
 
 import java.util.List;
-import lotto.Lotto;
+import java.util.stream.Collectors;
+import lotto.model.Lotto;
+import lotto.model.LottoMachine;
 
 public final class Output {
     private static final String LOTTO_AMOUNT_MESSAGE = "구입금액을 입력해 주세요.";
@@ -30,12 +32,25 @@ public final class Output {
         System.out.println(WINNING_RESULT_MESSAGE);
     }
 
-    public static void printPurchaseHistory(List<Lotto> lottos) {
-        System.out.printf(LOTTO_QUANTITY_MESSAGE, lottos.size());
+    public static void printPurchaseHistory(LottoMachine lottoMachine) {
+        printEmptyLine();
+        System.out.printf(LOTTO_QUANTITY_MESSAGE, lottoMachine.getIssuedLottoCount());
+        printEmptyLine();
         //TODO 로또 번호 내역
+        List<Lotto> history = lottoMachine.getHistory();
+        history.stream()
+                .map(lotto -> lotto.getNumbers().stream()
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(", ")))
+                .map(nums->"["+nums+"]")
+                .forEach(System.out::println);
     }
 
     public static void printRateOfReturn(double rateOfReturn) {
         System.out.printf(LOTTO_RATE_OF_RETURN, rateOfReturn);
+    }
+
+    private static void printEmptyLine() {
+        System.out.println();
     }
 }

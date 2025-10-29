@@ -1,14 +1,20 @@
 package lotto.controller;
 
+import lotto.model.LottoMachine;
+import lotto.model.NumberGenerator;
+import lotto.RandomNumberGenerator;
 import lotto.model.Amount;
 import lotto.view.Input;
 import lotto.view.Output;
 
 public class LottoController {
     public void run() {
-        checkLottoPurchaseAmount();
+        Amount amount = checkLottoPurchaseAmount();
+
+        NumberGenerator numberGenerator = new RandomNumberGenerator();
+        LottoMachine lottoMachine = new LottoMachine(amount.getLottoCount(),numberGenerator);
         //구매 내역
-//        Output.printPurchaseHistory();
+        Output.printPurchaseHistory(lottoMachine);
         //당첨 번호
         Output.printLottoWinningNumbersGuide();
         Input.readWinningNumbers();
