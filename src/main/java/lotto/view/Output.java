@@ -24,28 +24,35 @@ public final class Output {
     }
 
     public static void printLottoWinningNumbersGuide() {
+        printEmptyLine();
         System.out.println(LOTTO_WINNING_NUMBERS_MESSAGE);
     }
 
     public static void printBonusNumberGuide() {
+        printEmptyLine();
         System.out.println(BONUS_NUMBER_MESSAGE);
     }
 
     public static void printWinningResultGuide() {
+        printEmptyLine();
         System.out.println(WINNING_RESULT_MESSAGE);
     }
 
-    public static void printPurchaseHistory(LottoMachine lottoMachine) {
+    public static void printPurchaseHistory(int issuedCount, List<Lotto> history) {
         printEmptyLine();
-        System.out.printf(LOTTO_QUANTITY_MESSAGE, lottoMachine.getIssuedLottoCount());
+        System.out.printf(LOTTO_QUANTITY_MESSAGE, issuedCount);
         printEmptyLine();
-        List<Lotto> history = lottoMachine.getHistory();
+
         history.stream()
-                .map(lotto -> lotto.getNumbers().stream()
-                        .map(String::valueOf)
-                        .collect(Collectors.joining(", ")))
-                .map(nums -> "[" + nums + "]")
+                .map(Output::formatLotto)
                 .forEach(System.out::println);
+    }
+
+    private static String formatLotto(Lotto lotto) {
+        String nums = lotto.getNumbers().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(", "));
+        return "[" + nums + "]";
     }
 
     public static void printLottoRank(int matchCount, int prize, int count, boolean bonus) {

@@ -1,0 +1,50 @@
+package lotto.service;
+
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import lotto.constants.LottoRules;
+import lotto.model.Lotto;
+import lotto.model.LottoMachine;
+import lotto.model.LottoRank;
+import lotto.model.NumberGenerator;
+import lotto.model.WinningNumbers;
+
+public class LottoService {
+    public LottoMachine createLottoMachine(int count, NumberGenerator numberGenerator) {
+        return new LottoMachine(count,numberGenerator);
+    }
+
+    public Map<LottoRank, Integer> aggregateWinningResult(List<Lotto> lottos, WinningNumbers winningNumbers) {
+        Map<LottoRank, Integer> result = new EnumMap<>(LottoRank.class);
+        for (LottoRank rank : LottoRank.values()) {
+            result.put(rank, 0);
+        }
+        for (Lotto lotto : lottos) {
+            int count = 0;
+            boolean bonus = false;
+
+            for (Integer number : winningNumbers.getWinningLotto().getNumbers()) {
+                if (lotto.contains(number)) {
+                    count++;
+                }
+            }
+            if (lotto.contains(winningNumbers.getBonusNumber().number())) {
+                bonus = true;
+            }
+            LottoRank lottoRank = LottoRank.valueOf(count, bonus);
+            result.put(lottoRank, result.get(lottoRank) + 1);
+        }
+
+        return result;
+    }
+
+    public double calculateProfitRate(int matchCount,Map<LottoRank,Integer> result) {
+        long totalPrize = result.entrySet().stream()
+                .mapToLong(e -> e.getKey().getTotalPrize(e.getValue()))
+                .sum();
+
+        long totalSpent = (long) matchCount * LottoRules.PURCHASE_AMOUNT_UNIT;
+        return  (double) totalPrize / totalSpent * 100;
+    }
+}

@@ -2,16 +2,9 @@ package lotto.model;
 
 import lotto.constants.LottoRules;
 
-public class BonusNumber {
-    private final int number;
-
-    public BonusNumber(int number) {
+public record BonusNumber(int number) {
+    public BonusNumber {
         validate(number);
-        this.number = number;
-    }
-
-    public int getBonusNumber() {
-        return number;
     }
 
     private void validate(int number) {
