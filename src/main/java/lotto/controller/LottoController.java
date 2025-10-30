@@ -1,9 +1,6 @@
 package lotto.controller;
 
-import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
-import lotto.constants.LottoRules;
 import lotto.model.BonusNumber;
 import lotto.model.Lotto;
 import lotto.model.LottoMachine;
@@ -18,59 +15,71 @@ import lotto.view.Output;
 
 public class LottoController {
     private final LottoService lottoService = new LottoService();
+
     public void run() {
-        Money money = checkLottoPurchaseAmount();
+        Money money = readMoney();
         LottoMachine lottoMachine = lottoService.createLottoMachine(money.getLottoCount(), new RandomNumberGenerator());
 
-        Output.printPurchaseHistory(lottoMachine.getIssuedLottoCount(),lottoMachine.getHistory());
+        Output.printPurchaseHistory(lottoMachine.getIssuedLottoCount(), lottoMachine.getHistory());
 
-        Lotto winningNumber = checkLottoWinningNumber();
-        BonusNumber bonusNumber = checkBonusNumber();
+        Lotto winningNumber = readWinningNumber();
+        BonusNumber bonusNumber = readBonusNumber();
         WinningNumbers winningNumbers = new WinningNumbers(winningNumber, bonusNumber);
 
+        Map<LottoRank, Integer> winningResults = showWinningResults(lottoMachine, winningNumbers);
+        showProfitRate(money, winningResults);
+    }
+
+    private Map<LottoRank, Integer> showWinningResults(LottoMachine lottoMachine, WinningNumbers winningNumbers) {
         Output.printWinningResultGuide();
         Map<LottoRank, Integer> result = lottoService.aggregateWinningResult(lottoMachine.getHistory(),
                 winningNumbers);
+
         for (LottoRank rank : LottoRank.values()) {
-            if (rank == LottoRank.NONE) continue;
+            if (rank == LottoRank.NONE) {
+                continue;
+            }
             int count = result.get(rank);
             Output.printLottoRank(rank.getMatchCount(), rank.getPrize(), count, rank.isMatchBonus());
         }
+        return result;
+    }
 
+    private void showProfitRate(Money money, Map<LottoRank, Integer> result) {
         double profitRate = lottoService.calculateProfitRate(money.getLottoCount(), result);
         Output.printRateOfReturn(profitRate);
     }
 
-    private Money checkLottoPurchaseAmount() {
+    private Money readMoney() {
         while (true) {
             try {
                 Output.printLottoAmountGuide();
-                int amount = Parser.parsingMoney(Input.readAmount());
+                int amount = Parser.parsingAmount(Input.readAmount());
                 return new Money(amount);
             } catch (IllegalArgumentException e) {
-                System.out.println("[ERROR] " + e.getMessage());
+                Output.printErrorMessage(e.getMessage());
             }
         }
     }
 
-    private Lotto checkLottoWinningNumber() {
+    private Lotto readWinningNumber() {
         while (true) {
             try {
                 Output.printLottoWinningNumbersGuide();
                 return new Lotto(Parser.parsingWinningNumbers(Input.readWinningNumbers()));
             } catch (IllegalArgumentException e) {
-                System.out.println("[ERROR] " + e.getMessage());
+                Output.printErrorMessage(e.getMessage());
             }
         }
     }
 
-    private BonusNumber checkBonusNumber() {
+    private BonusNumber readBonusNumber() {
         while (true) {
             try {
                 Output.printBonusNumberGuide();
                 return new BonusNumber(Parser.parsingBonusNumber(Input.readBonusNumber()));
             } catch (IllegalArgumentException e) {
-                System.out.println("[ERROR] " + e.getMessage());
+                Output.printErrorMessage(e.getMessage());
             }
         }
     }

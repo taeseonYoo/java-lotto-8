@@ -17,7 +17,7 @@ public final class Output {
     private static final String LOTTO_WINNING_DETAILS = "%d개 일치 (%s원) - %d개";
     private static final String LOTTO_WINNING_DETAILS_WITH_BONUS = "%d개 일치, 보너스 볼 일치 (%s원) - %d개";
     private static final String LOTTO_RATE_OF_RETURN = "총 수익률은 %.1f%%입니다.";
-    private static final String LOTTO_EXCEPTION_MESSAGE = "[ERROR] ";
+    private static final String LOTTO_EXCEPTION_PREFIX = "[ERROR] ";
 
     public static void printLottoAmountGuide() {
         System.out.println(LOTTO_AMOUNT_MESSAGE);
@@ -70,5 +70,9 @@ public final class Output {
 
     private static void printEmptyLine() {
         System.out.println();
+    }
+
+    public static void printErrorMessage(String errorMessage) {
+        System.out.println(LOTTO_EXCEPTION_PREFIX + errorMessage);
     }
 }
