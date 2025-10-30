@@ -33,13 +33,12 @@ public enum LottoRank {
     }
 
     public static LottoRank valueOf(int matchCount, boolean matchBonus) {
-        if (matchCount == SECOND.getMatchCount() && matchBonus) {
-            return SECOND;
-        }
-        return Arrays.stream(values())
-                .filter(i -> matchCount == i.matchCount && !i.matchBonus)
-                .findFirst()
-                .orElse(NONE);
+        if (matchCount == FIRST.getMatchCount()) return FIRST;
+        if (matchBonus && matchCount == SECOND.getMatchCount()) return SECOND;
+        if (!matchBonus && matchCount == THIRD.getMatchCount()) return THIRD;
+        if (matchCount == FOURTH.getMatchCount()) return FOURTH;
+        if (matchCount == FIFTH.getMatchCount()) return FIFTH;
+        return NONE;
     }
 
     public long getTotalPrize(int count) {
