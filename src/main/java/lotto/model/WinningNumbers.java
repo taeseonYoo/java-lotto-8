@@ -16,11 +16,13 @@ public class WinningNumbers {
         }
     }
 
-    public Lotto getWinningLotto() {
-        return winningLotto;
+    public int countMatchingNumbers(Lotto lotto) {
+        return (int) lotto.getNumbers().stream()
+                .filter(winningLotto::contains)
+                .count();
     }
 
-    public BonusNumber getBonusNumber() {
-        return bonusNumber;
+    public boolean isMatchBonus(Lotto lotto) {
+        return lotto.contains(bonusNumber.number());
     }
 }

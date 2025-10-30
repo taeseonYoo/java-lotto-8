@@ -31,7 +31,7 @@ public class LottoController {
         Output.printWinningResultGuide();
         Map<LottoRank, Integer> result = lottoService.aggregateWinningResult(lottoMachine.getHistory(),
                 winningNumbers);
-        for (LottoRank rank : result.keySet()) {
+        for (LottoRank rank : LottoRank.values()) {
             if (rank == LottoRank.NONE) continue;
             int count = result.get(rank);
             Output.printLottoRank(rank.getMatchCount(), rank.getPrize(), count, rank.isMatchBonus());

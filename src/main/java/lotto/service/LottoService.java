@@ -12,39 +12,37 @@ import lotto.model.WinningNumbers;
 
 public class LottoService {
     public LottoMachine createLottoMachine(int count, NumberGenerator numberGenerator) {
-        return new LottoMachine(count,numberGenerator);
+        return new LottoMachine(count, numberGenerator);
     }
 
     public Map<LottoRank, Integer> aggregateWinningResult(List<Lotto> lottos, WinningNumbers winningNumbers) {
-        Map<LottoRank, Integer> result = new EnumMap<>(LottoRank.class);
-        for (LottoRank rank : LottoRank.values()) {
-            result.put(rank, 0);
-        }
+        Map<LottoRank, Integer> winningResult = initalizeRankMap();
+
         for (Lotto lotto : lottos) {
-            int count = 0;
-            boolean bonus = false;
+            int count = winningNumbers.countMatchingNumbers(lotto);
+            boolean bonus = winningNumbers.isMatchBonus(lotto);
 
-            for (Integer number : winningNumbers.getWinningLotto().getNumbers()) {
-                if (lotto.contains(number)) {
-                    count++;
-                }
-            }
-            if (lotto.contains(winningNumbers.getBonusNumber().number())) {
-                bonus = true;
-            }
             LottoRank lottoRank = LottoRank.valueOf(count, bonus);
-            result.put(lottoRank, result.get(lottoRank) + 1);
+            winningResult.put(lottoRank, winningResult.get(lottoRank) + 1);
         }
 
-        return result;
+        return winningResult;
     }
 
-    public double calculateProfitRate(int matchCount,Map<LottoRank,Integer> result) {
+    private static Map<LottoRank, Integer> initalizeRankMap() {
+        Map<LottoRank, Integer> winningResult = new EnumMap<>(LottoRank.class);
+        for (LottoRank rank : LottoRank.values()) {
+            winningResult.put(rank, 0);
+        }
+        return winningResult;
+    }
+
+    public double calculateProfitRate(int matchCount, Map<LottoRank, Integer> result) {
         long totalPrize = result.entrySet().stream()
                 .mapToLong(e -> e.getKey().getTotalPrize(e.getValue()))
                 .sum();
 
         long totalSpent = (long) matchCount * LottoRules.PURCHASE_AMOUNT_UNIT;
-        return  (double) totalPrize / totalSpent * 100;
+        return (double) totalPrize / totalSpent * 100;
     }
 }
