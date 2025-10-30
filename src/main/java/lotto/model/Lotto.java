@@ -8,6 +8,9 @@ import java.util.List;
 import lotto.constants.LottoRules;
 
 public class Lotto {
+    private static final String LOTTO_NUMBER_DUPLICATE_EXCEPTION = "로또 번호는 중복되지 않은 숫자로 구성되어야 합니다.";
+    private static final String LOTTO_COUNT_EXCEPTION = "로또 번호는 6개여야 합니다.";
+    private static final String LOTTO_RANGE_EXCEPTION = "로또 번호는 1~45사이의 숫자만 입력할 수 있습니다.";
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -23,18 +26,18 @@ public class Lotto {
 
     private void verifyNumberDuplication(List<Integer> numbers) {
         if (numbers.stream().distinct().count() != LottoRules.LOTTO_COUNT) {
-            throw new IllegalArgumentException("로또 번호는 중복되지 않은 6개로 구성되어야 합니다.");
+            throw new IllegalArgumentException(LOTTO_NUMBER_DUPLICATE_EXCEPTION);
         }
     }
     private void verifyNumberSize(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+        if (numbers.size() != LottoRules.LOTTO_COUNT) {
+            throw new IllegalArgumentException(LOTTO_COUNT_EXCEPTION);
         }
     }
 
     private void verifyNumberRange(List<Integer> numbers) {
         if (!numbers.stream().allMatch(num -> num >= LOTTO_MIN_NUMBER && num <= LOTTO_MAX_NUMBER)) {
-            throw new IllegalArgumentException("로또 번호는 1~45사이의 숫자만 입력할 수 있습니다.");
+            throw new IllegalArgumentException(LOTTO_RANGE_EXCEPTION);
         }
     }
 

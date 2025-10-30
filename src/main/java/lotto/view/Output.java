@@ -18,6 +18,9 @@ public final class Output {
     private static final String LOTTO_WINNING_DETAILS_WITH_BONUS = "%d개 일치, 보너스 볼 일치 (%s원) - %d개";
     private static final String LOTTO_RATE_OF_RETURN = "총 수익률은 %.1f%%입니다.";
     private static final String LOTTO_EXCEPTION_PREFIX = "[ERROR] ";
+    private static final String START_BRACKET = "[";
+    private static final String END_BRACKET = "]";
+    private static final String SEPARATOR = ", ";
 
     public static void printLottoAmountGuide() {
         System.out.println(LOTTO_AMOUNT_MESSAGE);
@@ -51,8 +54,8 @@ public final class Output {
     private static String formatLotto(Lotto lotto) {
         String nums = lotto.getNumbers().stream()
                 .map(String::valueOf)
-                .collect(Collectors.joining(", "));
-        return "[" + nums + "]";
+                .collect(Collectors.joining(SEPARATOR));
+        return START_BRACKET + nums + END_BRACKET;
     }
 
     public static void printLottoRank(int matchCount, int prize, int count, boolean bonus) {

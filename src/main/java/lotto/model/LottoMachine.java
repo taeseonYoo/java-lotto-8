@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoMachine {
+    private static final int START_INDEX = 0;
     private final List<Lotto> lottos;
 
     public LottoMachine(int count, NumberGenerator numberGenerator) {
@@ -18,7 +19,7 @@ public class LottoMachine {
     }
 
     private List<Lotto> generateLottos(int count, NumberGenerator numberGenerator) {
-        return IntStream.range(0, count)
+        return IntStream.range(START_INDEX, count)
                 .mapToObj(i -> new Lotto(numberGenerator.generate(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_COUNT)))
                 .collect(Collectors.toList());
     }
