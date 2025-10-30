@@ -1,9 +1,12 @@
 package lotto.view;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import lotto.model.Lotto;
 import lotto.model.LottoMachine;
+import lotto.model.LottoRank;
 
 public final class Output {
     private static final String LOTTO_AMOUNT_MESSAGE = "구입금액을 입력해 주세요.";
@@ -13,7 +16,7 @@ public final class Output {
     private static final String LOTTO_QUANTITY_MESSAGE = "%d개를 구매했습니다.";
     private static final String LOTTO_WINNING_DETAILS = "%d개 일치 (%s원) - %d개";
     private static final String LOTTO_WINNING_DETAILS_WITH_BONUS = "%d개 일치, 보너스 볼 일치 (%s원) - %d개";
-    private static final String LOTTO_RATE_OF_RETURN = "총 수익률은 %f%%입니다.";
+    private static final String LOTTO_RATE_OF_RETURN = "총 수익률은 %.1f%%입니다.";
     private static final String LOTTO_EXCEPTION_MESSAGE = "[ERROR] ";
 
     public static void printLottoAmountGuide() {
@@ -41,8 +44,17 @@ public final class Output {
                 .map(lotto -> lotto.getNumbers().stream()
                         .map(String::valueOf)
                         .collect(Collectors.joining(", ")))
-                .map(nums->"["+nums+"]")
+                .map(nums -> "[" + nums + "]")
                 .forEach(System.out::println);
+    }
+
+    public static void printLottoRank(int matchCount, int prize, int count, boolean bonus) {
+        String prizeFormatted = NumberFormat.getNumberInstance(Locale.KOREA).format(prize);
+        if (!bonus) {
+            System.out.println(String.format(LOTTO_WINNING_DETAILS, matchCount, prizeFormatted, count));
+        } else if (bonus) {
+            System.out.println(String.format(LOTTO_WINNING_DETAILS_WITH_BONUS, matchCount, prizeFormatted, count));
+        }
     }
 
     public static void printRateOfReturn(double rateOfReturn) {
