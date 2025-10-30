@@ -3,11 +3,12 @@ package lotto.controller;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import lotto.constants.LottoRules;
 import lotto.model.BonusNumber;
 import lotto.model.Lotto;
 import lotto.model.LottoMachine;
 import lotto.infra.RandomNumberGenerator;
-import lotto.model.Amount;
+import lotto.model.Money;
 import lotto.model.LottoRank;
 import lotto.utils.Parser;
 import lotto.model.WinningNumbers;
@@ -16,8 +17,8 @@ import lotto.view.Output;
 
 public class LottoController {
     public void run() {
-        Amount amount = checkLottoPurchaseAmount();
-        LottoMachine lottoMachine = new LottoMachine(amount.getLottoCount(), new RandomNumberGenerator());
+        Money money = checkLottoPurchaseAmount();
+        LottoMachine lottoMachine = new LottoMachine(money.getLottoCount(), new RandomNumberGenerator());
 
         Output.printPurchaseHistory(lottoMachine);
 
@@ -28,11 +29,12 @@ public class LottoController {
         aggregateWinningResult(lottoMachine.getHistory(), winningNumbers);
     }
 
-    private Amount checkLottoPurchaseAmount() {
+    private Money checkLottoPurchaseAmount() {
         while (true) {
             try {
                 Output.printLottoAmountGuide();
-                return new Amount(Input.readAmount());
+                int amount = Parser.parsingMoney(Input.readAmount());
+                return new Money(amount);
             } catch (IllegalArgumentException e) {
                 System.out.println("[ERROR] " + e.getMessage());
             }
@@ -91,7 +93,7 @@ public class LottoController {
             totalPrize += rank.getTotalPrize(count);
         }
 
-        long totalSpent = (long) lottos.size() * 1_000;
+        long totalSpent = (long) lottos.size() * LottoRules.PURCHASE_AMOUNT_UNIT;
         double profitRate = (double) totalPrize / totalSpent * 100;
 
         Output.printRateOfReturn(profitRate);
