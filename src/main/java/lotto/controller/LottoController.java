@@ -8,7 +8,7 @@ import lotto.infra.RandomNumberGenerator;
 import lotto.model.Money;
 import lotto.model.LottoRank;
 import lotto.service.LottoService;
-import lotto.utils.Parser;
+import lotto.common.utils.Parser;
 import lotto.model.WinningNumbers;
 import lotto.view.Input;
 import lotto.view.Output;

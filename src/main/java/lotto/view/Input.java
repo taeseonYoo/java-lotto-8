@@ -1,7 +1,7 @@
 package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import lotto.utils.InputValidator;
+import lotto.common.utils.InputValidator;
 
 public final class Input {
     public static String readAmount() {

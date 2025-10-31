@@ -1,11 +1,11 @@
 package lotto.model;
 
-import static lotto.constants.LottoRules.LOTTO_MAX_NUMBER;
-import static lotto.constants.LottoRules.LOTTO_MIN_NUMBER;
+import static lotto.common.constants.LottoRules.LOTTO_MAX_NUMBER;
+import static lotto.common.constants.LottoRules.LOTTO_MIN_NUMBER;
 
 import java.util.Collections;
 import java.util.List;
-import lotto.constants.LottoRules;
+import lotto.common.constants.LottoRules;
 
 public class Lotto {
     private static final String LOTTO_NUMBER_DUPLICATE_EXCEPTION = "로또 번호는 중복되지 않은 숫자로 구성되어야 합니다.";

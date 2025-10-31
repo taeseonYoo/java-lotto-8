@@ -1,4 +1,4 @@
-package lotto.utils;
+package lotto.common.utils;
 
 import java.util.regex.Pattern;
 

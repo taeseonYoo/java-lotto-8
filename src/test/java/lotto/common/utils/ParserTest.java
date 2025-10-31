@@ -1,8 +1,7 @@
-package lotto.utils;
-
-import static org.junit.jupiter.api.Assertions.*;
+package lotto.common.utils;
 
 import java.util.List;
+import lotto.common.utils.Parser;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

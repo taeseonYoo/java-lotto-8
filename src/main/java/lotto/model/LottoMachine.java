@@ -1,14 +1,13 @@
 package lotto.model;
 
-import static lotto.constants.LottoRules.LOTTO_COUNT;
-import static lotto.constants.LottoRules.LOTTO_MAX_NUMBER;
-import static lotto.constants.LottoRules.LOTTO_MIN_NUMBER;
+import static lotto.common.constants.LottoRules.LOTTO_COUNT;
+import static lotto.common.constants.LottoRules.LOTTO_MAX_NUMBER;
+import static lotto.common.constants.LottoRules.LOTTO_MIN_NUMBER;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import lotto.constants.LottoRules;
 
 public class LottoMachine {
     private static final String LOTTO_COUNT_EXCEPTION = "로또는 최소 1장 이상 발급되어야 합니다.";

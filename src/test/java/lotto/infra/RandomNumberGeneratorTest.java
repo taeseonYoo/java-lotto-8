@@ -1,10 +1,9 @@
 package lotto.infra;
 
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import lotto.constants.LottoRules;
+import lotto.common.constants.LottoRules;
 import lotto.model.NumberGenerator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

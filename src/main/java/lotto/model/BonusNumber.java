@@ -1,6 +1,6 @@
 package lotto.model;
 
-import lotto.constants.LottoRules;
+import lotto.common.constants.LottoRules;
 
 public record BonusNumber(int number) {
     private static final String INVALID_BONUS_NUMBER_RANGE_EXCEPTION = "보너스 숫자는 " + LottoRules.LOTTO_MIN_NUMBER + "~" +
