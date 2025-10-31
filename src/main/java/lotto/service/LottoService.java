@@ -38,12 +38,12 @@ public class LottoService {
         return winningResult;
     }
 
-    public double calculateProfitRate(int matchCount, Map<LottoRank, Integer> result) {
+    public double calculateProfitRate(int purchasedCount, Map<LottoRank, Integer> result) {
         long totalPrize = result.entrySet().stream()
                 .mapToLong(e -> e.getKey().getTotalPrize(e.getValue()))
                 .sum();
 
-        long totalSpent = (long) matchCount * LottoRules.PURCHASE_AMOUNT_UNIT;
+        long totalSpent = (long) purchasedCount * LottoRules.PURCHASE_AMOUNT_UNIT;
         return (double) totalPrize / totalSpent * PERCENTAGE_MULTIPLIER;
     }
 }

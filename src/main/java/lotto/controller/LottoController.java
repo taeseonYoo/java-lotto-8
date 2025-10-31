@@ -46,8 +46,8 @@ public class LottoController {
         return result;
     }
 
-    private void showProfitRate(int count, Map<LottoRank, Integer> result) {
-        double profitRate = lottoService.calculateProfitRate(count, result);
+    private void showProfitRate(int purchasedCount, Map<LottoRank, Integer> result) {
+        double profitRate = lottoService.calculateProfitRate(purchasedCount, result);
         Output.printRateOfReturn(profitRate);
     }
 
