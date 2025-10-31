@@ -18,7 +18,7 @@ public class LottoController {
 
     public void run() {
         Money money = readMoney();
-        LottoMachine lottoMachine = lottoService.createLottoMachine(money.getLottoCount(), new RandomNumberGenerator());
+        LottoMachine lottoMachine = lottoService.createLottoMachine(money, new RandomNumberGenerator());
 
         Output.printPurchaseHistory(lottoMachine.getIssuedLottoCount(), lottoMachine.getHistory());
 
@@ -27,7 +27,7 @@ public class LottoController {
         WinningNumbers winningNumbers = new WinningNumbers(winningNumber, bonusNumber);
 
         Map<LottoRank, Integer> winningResults = showWinningResults(lottoMachine, winningNumbers);
-        showProfitRate(money, winningResults);
+        showProfitRate(lottoMachine.getIssuedLottoCount(), winningResults);
     }
 
     private Map<LottoRank, Integer> showWinningResults(LottoMachine lottoMachine, WinningNumbers winningNumbers) {
@@ -36,17 +36,16 @@ public class LottoController {
                 winningNumbers);
 
         for (LottoRank rank : LottoRank.values()) {
-            if (rank == LottoRank.NONE) {
-                continue;
-            }
+            if (rank == LottoRank.NONE) continue;
+
             int count = result.get(rank);
             Output.printLottoRank(rank.getMatchCount(), rank.getPrize(), count, rank.isMatchBonus());
         }
         return result;
     }
 
-    private void showProfitRate(Money money, Map<LottoRank, Integer> result) {
-        double profitRate = lottoService.calculateProfitRate(money.getLottoCount(), result);
+    private void showProfitRate(int count,Map<LottoRank, Integer> result) {
+        double profitRate = lottoService.calculateProfitRate(count, result);
         Output.printRateOfReturn(profitRate);
     }
 

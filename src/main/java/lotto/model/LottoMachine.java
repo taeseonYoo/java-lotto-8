@@ -8,8 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import lotto.constants.LottoRules;
 
 public class LottoMachine {
+    private static final String LOTTO_COUNT_EXCEPTION = "로또는 최소 1장 이상 발급되어야 합니다.";
     private static final int START_INDEX = 0;
     private final List<Lotto> lottos;
 
@@ -17,8 +19,15 @@ public class LottoMachine {
         this.lottos = lottos;
     }
 
-    public static LottoMachine create(int count, NumberGenerator numberGenerator) {
-        return new LottoMachine(generateLottos(count, numberGenerator));
+    public static LottoMachine create(Money money, NumberGenerator numberGenerator) {
+        validateCount(money);
+        return new LottoMachine(generateLottos(money.calculateCount(), numberGenerator));
+    }
+
+    private static void validateCount(Money money) {
+        if (money.calculateCount() < 1) {
+            throw new IllegalArgumentException(LOTTO_COUNT_EXCEPTION);
+        }
     }
 
     private static List<Lotto> generateLottos(int count, NumberGenerator numberGenerator) {

@@ -11,7 +11,7 @@ public class Money {
         this.amount = amount;
     }
 
-    public int getLottoCount() {
+    public int calculateCount() {
         return amount / PURCHASE_AMOUNT_UNIT;
     }
 
