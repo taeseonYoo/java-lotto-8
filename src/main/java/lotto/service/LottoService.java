@@ -1,14 +1,8 @@
 package lotto.service;
 
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-import lotto.common.constants.LottoRules;
 import lotto.model.Lotto;
-import lotto.model.LottoMachine;
 import lotto.model.LottoRank;
-import lotto.model.Money;
-import lotto.model.NumberGenerator;
 import lotto.model.WinningNumbers;
 import lotto.model.WinningResult;
 
@@ -19,7 +13,7 @@ public class LottoService {
 
         for (Lotto lotto : lottos) {
             LottoRank lottoRank = evaluate(lotto, winningNumbers);
-            winningResult.record(lottoRank);
+            winningResult.win(lottoRank);
         }
 
         return winningResult;

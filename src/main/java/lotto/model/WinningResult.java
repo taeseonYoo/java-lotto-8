@@ -3,7 +3,6 @@ package lotto.model;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
-import lotto.common.constants.LottoRules;
 
 public class WinningResult {
     private static final int COUNT_INIT = 0;
@@ -22,7 +21,7 @@ public class WinningResult {
                 .forEach(rank -> winningResult.put(rank, COUNT_INIT));
     }
 
-    public void record(LottoRank rank) {
+    public void win(LottoRank rank) {
         winningResult.put(rank, winningResult.get(rank) + COUNT_INCREMENT);
     }
 
