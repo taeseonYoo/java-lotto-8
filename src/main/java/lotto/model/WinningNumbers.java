@@ -17,13 +17,19 @@ public class WinningNumbers {
         }
     }
 
-    public int countMatchingNumbers(Lotto lotto) {
+    private int countMatchingNumbers(Lotto lotto) {
         return (int) lotto.getNumbers().stream()
                 .filter(winningLotto::contains)
                 .count();
     }
 
-    public boolean isMatchBonus(Lotto lotto) {
+    private boolean isMatchBonus(Lotto lotto) {
         return lotto.contains(bonusNumber.number());
+    }
+
+    public LottoRank evaluate(Lotto lotto) {
+        int matchCount = countMatchingNumbers(lotto);
+        boolean bonus = isMatchBonus(lotto);
+        return LottoRank.valueOf(matchCount, bonus);
     }
 }

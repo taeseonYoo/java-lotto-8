@@ -12,16 +12,10 @@ public class LottoService {
         WinningResult winningResult = new WinningResult();
 
         for (Lotto lotto : lottos) {
-            LottoRank lottoRank = evaluate(lotto, winningNumbers);
+            LottoRank lottoRank = winningNumbers.evaluate(lotto);
             winningResult.win(lottoRank);
         }
 
         return winningResult;
-    }
-
-    private LottoRank evaluate(Lotto lotto, WinningNumbers winningNumbers) {
-        int matchCount = winningNumbers.countMatchingNumbers(lotto);
-        boolean bonus = winningNumbers.isMatchBonus(lotto);
-        return LottoRank.valueOf(matchCount, bonus);
     }
 }
