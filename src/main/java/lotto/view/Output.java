@@ -1,5 +1,6 @@
 package lotto.view;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -16,7 +17,7 @@ public final class Output {
     private static final String LOTTO_QUANTITY_MESSAGE = "%d개를 구매했습니다.";
     private static final String LOTTO_WINNING_DETAILS = "%d개 일치 (%s원) - %d개";
     private static final String LOTTO_WINNING_DETAILS_WITH_BONUS = "%d개 일치, 보너스 볼 일치 (%s원) - %d개";
-    private static final String LOTTO_RATE_OF_RETURN = "총 수익률은 %.1f%%입니다.";
+    private static final String LOTTO_RATE_OF_RETURN = "총 수익률은 %s%%입니다.";
     private static final String LOTTO_EXCEPTION_PREFIX = "[ERROR] ";
     private static final String START_BRACKET = "[";
     private static final String END_BRACKET = "]";
@@ -61,14 +62,16 @@ public final class Output {
     public static void printLottoRank(int matchCount, int prize, int count, boolean bonus) {
         String prizeFormatted = NumberFormat.getNumberInstance(Locale.KOREA).format(prize);
         if (!bonus) {
-            System.out.println(String.format(LOTTO_WINNING_DETAILS, matchCount, prizeFormatted, count));
+            System.out.printf(LOTTO_WINNING_DETAILS, matchCount, prizeFormatted, count);
         } else if (bonus) {
-            System.out.println(String.format(LOTTO_WINNING_DETAILS_WITH_BONUS, matchCount, prizeFormatted, count));
+            System.out.printf(LOTTO_WINNING_DETAILS_WITH_BONUS, matchCount, prizeFormatted, count);
         }
+        printEmptyLine();
     }
 
     public static void printRateOfReturn(double rateOfReturn) {
-        System.out.printf(LOTTO_RATE_OF_RETURN, rateOfReturn);
+        String formattedResult = new DecimalFormat("#,##0.0").format(rateOfReturn);
+        System.out.printf(LOTTO_RATE_OF_RETURN, formattedResult);
     }
 
     private static void printEmptyLine() {
