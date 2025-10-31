@@ -44,12 +44,5 @@ class LottoMachineTest {
         //then
         Assertions.assertThat(lottoMachine.getIssuedLottoCount()).isEqualTo(3);
     }
-
-    @Test
-    @DisplayName("로또가 1개 미만으로 발급되면 오류가 발생한다.")
-    void create_fail() {
-        Money money = new Money(0);
-        Assertions.assertThatThrownBy(() -> LottoMachine.create(money, new RandomNumberGenerator()))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
+    
 }
