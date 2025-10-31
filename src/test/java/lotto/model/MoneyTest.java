@@ -28,13 +28,13 @@ class MoneyTest {
     }
 
     @Test
-    @DisplayName("로또 개수는 금액 / 1000을 반환한다.")
+    @DisplayName("로또 개수는 금액 / 단위를 반환한다.")
     void getLottoCount() {
         //given
-        int input = 1000000;
+        int input = 1_000_000;
         Money money = new Money(input);
         //when
-        int lottoCount = money.getLottoCount();
+        int lottoCount = money.calculateCount();
         //then
         Assertions.assertThat(lottoCount).isEqualTo(1000);
     }
