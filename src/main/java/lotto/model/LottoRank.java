@@ -40,8 +40,4 @@ public enum LottoRank {
         if (matchCount == FIFTH.getMatchCount()) return FIFTH;
         return NONE;
     }
-
-    public long getTotalPrize(int count) {
-        return (long) prize * count;
-    }
 }

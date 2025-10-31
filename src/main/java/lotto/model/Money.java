@@ -11,6 +11,10 @@ public class Money {
         this.amount = amount;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     public int calculateCount() {
         return amount / PURCHASE_AMOUNT_UNIT;
     }

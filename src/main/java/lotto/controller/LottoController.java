@@ -7,6 +7,7 @@ import lotto.model.LottoMachine;
 import lotto.infra.RandomNumberGenerator;
 import lotto.model.Money;
 import lotto.model.LottoRank;
+import lotto.model.WinningResult;
 import lotto.service.LottoService;
 import lotto.common.utils.Parser;
 import lotto.model.WinningNumbers;
@@ -26,28 +27,27 @@ public class LottoController {
         BonusNumber bonusNumber = readBonusNumber();
         WinningNumbers winningNumbers = new WinningNumbers(winningNumber, bonusNumber);
 
-        Map<LottoRank, Integer> winningResults = showWinningResults(lottoMachine, winningNumbers);
-        showProfitRate(lottoMachine.getIssuedLottoCount(), winningResults);
+        WinningResult winningResult = showWinningResults(lottoMachine, winningNumbers);
+        showProfitRate(money, winningResult);
     }
 
-    private Map<LottoRank, Integer> showWinningResults(LottoMachine lottoMachine, WinningNumbers winningNumbers) {
+    private WinningResult showWinningResults(LottoMachine lottoMachine, WinningNumbers winningNumbers) {
         Output.printWinningResultGuide();
-        Map<LottoRank, Integer> result = lottoService.aggregateWinningResult(lottoMachine.getHistory(),
-                winningNumbers);
+        WinningResult winningResult = lottoService.aggregateWinningResult(lottoMachine.getHistory(), winningNumbers);
 
         for (LottoRank rank : LottoRank.values()) {
             if (rank == LottoRank.NONE) {
                 continue;
             }
 
-            int count = result.get(rank);
+            int count = winningResult.getMatchCount(rank);
             Output.printLottoRank(rank.getMatchCount(), rank.getPrize(), count, rank.isMatchBonus());
         }
-        return result;
+        return winningResult;
     }
 
-    private void showProfitRate(int purchasedCount, Map<LottoRank, Integer> result) {
-        double profitRate = lottoService.calculateProfitRate(purchasedCount, result);
+    private void showProfitRate(Money money, WinningResult winningResult) {
+        double profitRate = winningResult.calculateProfitRate(money);
         Output.printRateOfReturn(profitRate);
     }
 
