@@ -15,9 +15,6 @@ public class LottoService {
     private static final int COUNT_INCREMENT = 1;
     private static final int COUNT_INIT = 0;
     private static final int PERCENTAGE_MULTIPLIER = 100;
-    public LottoMachine createLottoMachine(Money money, NumberGenerator numberGenerator) {
-        return LottoMachine.create(money, numberGenerator);
-    }
 
     public Map<LottoRank, Integer> aggregateWinningResult(List<Lotto> lottos, WinningNumbers winningNumbers) {
         Map<LottoRank, Integer> winningResult = initalizeRankMap();
