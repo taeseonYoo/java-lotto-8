@@ -4,6 +4,9 @@ import camp.nextstep.edu.missionutils.Console;
 import lotto.common.utils.InputValidator;
 
 public final class Input {
+    private Input() {
+    }
+
     public static String readAmount() {
         String inputAmount = Console.readLine();
         InputValidator.validateAmount(inputAmount);

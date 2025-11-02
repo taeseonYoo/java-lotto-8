@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 public class LottoMachine {
     private static final String LOTTO_COUNT_EXCEPTION = "로또는 최소 1장 이상 발급되어야 합니다.";
     private static final int START_INDEX = 0;
+    private static final int MINIMUM_LOTTO_GENERATE_COUNT = 1;
     private final List<Lotto> lottos;
 
     private LottoMachine(List<Lotto> lottos) {
@@ -24,7 +25,7 @@ public class LottoMachine {
     }
 
     private static void validateCount(Money money) {
-        if (money.calculateCount() < 1) {
+        if (money.calculateCount() < MINIMUM_LOTTO_GENERATE_COUNT) {
             throw new IllegalArgumentException(LOTTO_COUNT_EXCEPTION);
         }
     }

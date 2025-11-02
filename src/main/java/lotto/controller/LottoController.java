@@ -1,6 +1,5 @@
 package lotto.controller;
 
-import java.util.Map;
 import lotto.model.BonusNumber;
 import lotto.model.Lotto;
 import lotto.model.LottoMachine;
@@ -12,7 +11,7 @@ import lotto.service.LottoService;
 import lotto.common.utils.Parser;
 import lotto.model.WinningNumbers;
 import lotto.view.Input;
-import lotto.view.Output;
+import lotto.view.ConsoleOutput;
 
 public class LottoController {
     private final LottoService lottoService = new LottoService();
@@ -21,7 +20,7 @@ public class LottoController {
         Money money = readMoney();
         LottoMachine lottoMachine = LottoMachine.create(money, new RandomNumberGenerator());
 
-        Output.printPurchaseHistory(lottoMachine.getIssuedLottoCount(), lottoMachine.getHistory());
+        ConsoleOutput.printPurchaseHistory(lottoMachine.getIssuedLottoCount(), lottoMachine.getHistory());
 
         Lotto winningNumber = readWinningNumber();
         BonusNumber bonusNumber = readBonusNumber();
@@ -32,7 +31,7 @@ public class LottoController {
     }
 
     private WinningResult showWinningResults(LottoMachine lottoMachine, WinningNumbers winningNumbers) {
-        Output.printWinningResultGuide();
+        ConsoleOutput.printWinningResultGuide();
         WinningResult winningResult = lottoService.aggregateWinningResult(lottoMachine.getHistory(), winningNumbers);
 
         for (LottoRank rank : LottoRank.values()) {
@@ -41,24 +40,24 @@ public class LottoController {
             }
 
             int count = winningResult.getMatchCount(rank);
-            Output.printLottoRank(rank.getMatchCount(), rank.getPrize(), count, rank.isMatchBonus());
+            ConsoleOutput.printLottoRank(rank.getMatchCount(), rank.getPrize(), count, rank.isMatchBonus());
         }
         return winningResult;
     }
 
     private void showProfitRate(Money money, WinningResult winningResult) {
         double profitRate = winningResult.calculateProfitRate(money);
-        Output.printRateOfReturn(profitRate);
+        ConsoleOutput.printRateOfReturn(profitRate);
     }
 
     private Money readMoney() {
         while (true) {
             try {
-                Output.printLottoAmountGuide();
+                ConsoleOutput.printLottoAmountGuide();
                 int amount = Parser.parsingAmount(Input.readAmount());
                 return new Money(amount);
             } catch (IllegalArgumentException e) {
-                Output.printErrorMessage(e.getMessage());
+                ConsoleOutput.printErrorMessage(e.getMessage());
             }
         }
     }
@@ -66,10 +65,10 @@ public class LottoController {
     private Lotto readWinningNumber() {
         while (true) {
             try {
-                Output.printLottoWinningNumbersGuide();
+                ConsoleOutput.printLottoWinningNumbersGuide();
                 return new Lotto(Parser.parsingWinningNumbers(Input.readWinningNumbers()));
             } catch (IllegalArgumentException e) {
-                Output.printErrorMessage(e.getMessage());
+                ConsoleOutput.printErrorMessage(e.getMessage());
             }
         }
     }
@@ -77,10 +76,10 @@ public class LottoController {
     private BonusNumber readBonusNumber() {
         while (true) {
             try {
-                Output.printBonusNumberGuide();
+                ConsoleOutput.printBonusNumberGuide();
                 return new BonusNumber(Parser.parsingBonusNumber(Input.readBonusNumber()));
             } catch (IllegalArgumentException e) {
-                Output.printErrorMessage(e.getMessage());
+                ConsoleOutput.printErrorMessage(e.getMessage());
             }
         }
     }

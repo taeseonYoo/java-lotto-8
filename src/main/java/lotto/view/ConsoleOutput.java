@@ -1,27 +1,29 @@
 package lotto.view;
 
+import static lotto.common.constants.OutputConstants.BONUS_NUMBER_MESSAGE;
+import static lotto.common.constants.OutputConstants.END_BRACKET;
+import static lotto.common.constants.OutputConstants.LOTTO_AMOUNT_MESSAGE;
+import static lotto.common.constants.OutputConstants.LOTTO_EXCEPTION_PREFIX;
+import static lotto.common.constants.OutputConstants.LOTTO_QUANTITY_MESSAGE;
+import static lotto.common.constants.OutputConstants.LOTTO_RATE_OF_RETURN;
+import static lotto.common.constants.OutputConstants.LOTTO_WINNING_DETAILS;
+import static lotto.common.constants.OutputConstants.LOTTO_WINNING_DETAILS_WITH_BONUS;
+import static lotto.common.constants.OutputConstants.LOTTO_WINNING_NUMBERS_MESSAGE;
+import static lotto.common.constants.OutputConstants.RATE_OF_RETURN_FORMAT;
+import static lotto.common.constants.OutputConstants.SEPARATOR;
+import static lotto.common.constants.OutputConstants.START_BRACKET;
+import static lotto.common.constants.OutputConstants.WINNING_RESULT_MESSAGE;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import lotto.model.Lotto;
-import lotto.model.LottoMachine;
-import lotto.model.LottoRank;
 
-public final class Output {
-    private static final String LOTTO_AMOUNT_MESSAGE = "구입금액을 입력해 주세요.";
-    private static final String LOTTO_WINNING_NUMBERS_MESSAGE = "당첨 번호를 입력해 주세요.";
-    private static final String BONUS_NUMBER_MESSAGE = "보너스 번호를 입력해 주세요.";
-    private static final String WINNING_RESULT_MESSAGE = "당첨 통계\n" + "---";
-    private static final String LOTTO_QUANTITY_MESSAGE = "%d개를 구매했습니다.";
-    private static final String LOTTO_WINNING_DETAILS = "%d개 일치 (%s원) - %d개";
-    private static final String LOTTO_WINNING_DETAILS_WITH_BONUS = "%d개 일치, 보너스 볼 일치 (%s원) - %d개";
-    private static final String LOTTO_RATE_OF_RETURN = "총 수익률은 %s%%입니다.";
-    private static final String LOTTO_EXCEPTION_PREFIX = "[ERROR] ";
-    private static final String START_BRACKET = "[";
-    private static final String END_BRACKET = "]";
-    private static final String SEPARATOR = ", ";
+public final class ConsoleOutput {
+    private ConsoleOutput() {
+    }
 
     public static void printLottoAmountGuide() {
         System.out.println(LOTTO_AMOUNT_MESSAGE);
@@ -48,7 +50,7 @@ public final class Output {
         printEmptyLine();
 
         history.stream()
-                .map(Output::formatLotto)
+                .map(ConsoleOutput::formatLotto)
                 .forEach(System.out::println);
     }
 
@@ -70,8 +72,12 @@ public final class Output {
     }
 
     public static void printRateOfReturn(double rateOfReturn) {
-        String formattedResult = new DecimalFormat("#,##0.0").format(rateOfReturn);
+        String formattedResult = formatRateOfReturn(rateOfReturn);
         System.out.printf(LOTTO_RATE_OF_RETURN, formattedResult);
+    }
+
+    private static String formatRateOfReturn(double rateOfReturn) {
+        return new DecimalFormat(RATE_OF_RETURN_FORMAT).format(rateOfReturn);
     }
 
     private static void printEmptyLine() {

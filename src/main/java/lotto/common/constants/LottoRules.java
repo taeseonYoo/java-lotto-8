@@ -1,6 +1,6 @@
 package lotto.common.constants;
 
-public class LottoRules {
+public final class LottoRules {
     private LottoRules(){}
     public static final int LOTTO_MIN_NUMBER = 1;
     public static final int LOTTO_MAX_NUMBER = 45;
