@@ -1,5 +1,6 @@
 package lotto.common.utils;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import lotto.common.utils.InputValidator;
@@ -13,7 +14,7 @@ class InputValidatorTest {
             "1:2:3:4:5:6", ""})
     void validateWinningNumbers_fail(String inputWinningNumbers) {
         //when & then
-        Assertions.assertThatThrownBy(
+        assertThatThrownBy(
                         () -> InputValidator.validateWinningNumbers(inputWinningNumbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -22,7 +23,7 @@ class InputValidatorTest {
     @ValueSource(strings = {"-5000", "thousand", "5,000", "5000₩", ""})
     void validateAmounts_fail(String inputAmount) {
         //when & then
-        Assertions.assertThatThrownBy(
+        assertThatThrownBy(
                         () -> InputValidator.validateAmount(inputAmount))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -31,7 +32,7 @@ class InputValidatorTest {
     @ValueSource(strings = {"$", "seven", " "})
     void validateBonusNumber_fail(String inputBonusNumber) {
         //when & then
-        Assertions.assertThatThrownBy(
+        assertThatThrownBy(
                         () -> InputValidator.validateAmount(inputBonusNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }

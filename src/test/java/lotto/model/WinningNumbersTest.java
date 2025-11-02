@@ -1,10 +1,10 @@
 package lotto.model;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.stream.Stream;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,7 +21,7 @@ class WinningNumbersTest {
         Lotto winningLotto = new Lotto(numbers);
         BonusNumber bonusNumber = new BonusNumber(1);
         //when & then
-        Assertions.assertThatThrownBy(() -> new WinningNumbers(winningLotto, bonusNumber))
+        assertThatThrownBy(() -> new WinningNumbers(winningLotto, bonusNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -46,7 +46,7 @@ class WinningNumbersTest {
         //when
         LottoRank resultRank = winningNumbers.evaluate(lotto);
         //then
-        Assertions.assertThat(resultRank).isEqualTo(expectedRank);
+        assertThat(resultRank).isEqualTo(expectedRank);
     }
     private static Stream<Arguments> getLottosForEachRank() {
         return Stream.of(

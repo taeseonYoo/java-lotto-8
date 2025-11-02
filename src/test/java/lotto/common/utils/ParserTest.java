@@ -1,8 +1,8 @@
 package lotto.common.utils;
 
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.List;
-import lotto.common.utils.Parser;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ class ParserTest {
         //when
         List<Integer> numbers = Parser.parsingWinningNumbers(input);
         //then
-        Assertions.assertThat(numbers).containsExactly(1, 2, 3, 4, 5, 6);
+        assertThat(numbers).containsExactly(1, 2, 3, 4, 5, 6);
     }
 
     @Test
@@ -25,7 +25,7 @@ class ParserTest {
         //given
         String input = "1,2,3,4,5,2147483648";
         //when & then
-        Assertions.assertThatThrownBy(
+        assertThatThrownBy(
                         () -> Parser.parsingWinningNumbers(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -38,7 +38,7 @@ class ParserTest {
         //when
         int bonusNumber = Parser.parsingBonusNumber(input);
         //then
-        Assertions.assertThat(bonusNumber).isEqualTo(45);
+        assertThat(bonusNumber).isEqualTo(45);
 
     }
 
@@ -48,7 +48,7 @@ class ParserTest {
         //given
         String input = String.valueOf((long) Integer.MAX_VALUE + 1);
         //when & then
-        Assertions.assertThatThrownBy(
+        assertThatThrownBy(
                         () -> Parser.parsingBonusNumber(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -61,7 +61,7 @@ class ParserTest {
         //when
         int amount = Parser.parsingAmount(input);
         //then
-        Assertions.assertThat(amount).isEqualTo(5000);
+        assertThat(amount).isEqualTo(5000);
     }
 
     @Test
@@ -70,7 +70,7 @@ class ParserTest {
         //given
         String input = String.valueOf((long) Integer.MAX_VALUE + 1);
         //when & then
-        Assertions.assertThatThrownBy(
+        assertThatThrownBy(
                         () -> Parser.parsingAmount(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }

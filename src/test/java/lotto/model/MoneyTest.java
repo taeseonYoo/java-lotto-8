@@ -1,5 +1,6 @@
 package lotto.model;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.assertj.core.api.Assertions;
@@ -23,7 +24,7 @@ class MoneyTest {
     @DisplayName("1,000원으로 나누어 지지 않는 값이 주어지면, 예외가 발생한다.")
     void createAmount_fail_unit(int input) {
         //when & then
-        Assertions.assertThatThrownBy(() -> new Money(input))
+        assertThatThrownBy(() -> new Money(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -33,7 +34,7 @@ class MoneyTest {
         //given
         int input = 0;
         //when & then
-        Assertions.assertThatThrownBy(() -> new Money(input))
+        assertThatThrownBy(() -> new Money(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -46,6 +47,6 @@ class MoneyTest {
         //when
         int lottoCount = money.calculateCount();
         //then
-        Assertions.assertThat(lottoCount).isEqualTo(1000);
+        assertThat(lottoCount).isEqualTo(1000);
     }
 }

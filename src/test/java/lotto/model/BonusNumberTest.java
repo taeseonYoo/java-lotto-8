@@ -1,5 +1,6 @@
 package lotto.model;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.assertj.core.api.Assertions;
@@ -13,7 +14,7 @@ class BonusNumberTest {
     @ValueSource(ints = {-1, 0, 46})
     void createBonusNumber_fail(int number) {
         //when & then
-        Assertions.assertThatThrownBy(() ->
+        assertThatThrownBy(() ->
                 new BonusNumber(number));
     }
 

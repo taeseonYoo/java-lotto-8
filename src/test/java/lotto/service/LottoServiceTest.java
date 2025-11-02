@@ -1,13 +1,14 @@
 package lotto.service;
 
 
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.List;
 import lotto.model.BonusNumber;
 import lotto.model.Lotto;
 import lotto.model.LottoRank;
 import lotto.model.WinningNumbers;
 import lotto.model.WinningResult;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,11 +36,11 @@ class LottoServiceTest {
         //when
         WinningResult winningResult = lottoService.aggregateWinningResult(lottos, winningNumbers);
         //then
-        Assertions.assertThat(winningResult.getMatchCount(LottoRank.FIRST)).isEqualTo(1);
-        Assertions.assertThat(winningResult.getMatchCount(LottoRank.SECOND)).isEqualTo(0);
-        Assertions.assertThat(winningResult.getMatchCount(LottoRank.THIRD)).isEqualTo(0);
-        Assertions.assertThat(winningResult.getMatchCount(LottoRank.FOURTH)).isEqualTo(0);
-        Assertions.assertThat(winningResult.getMatchCount(LottoRank.FIFTH)).isEqualTo(1);
-        Assertions.assertThat(winningResult.getMatchCount(LottoRank.NONE)).isEqualTo(1);
+        assertThat(winningResult.getMatchCount(LottoRank.FIRST)).isEqualTo(1);
+        assertThat(winningResult.getMatchCount(LottoRank.SECOND)).isEqualTo(0);
+        assertThat(winningResult.getMatchCount(LottoRank.THIRD)).isEqualTo(0);
+        assertThat(winningResult.getMatchCount(LottoRank.FOURTH)).isEqualTo(0);
+        assertThat(winningResult.getMatchCount(LottoRank.FIFTH)).isEqualTo(1);
+        assertThat(winningResult.getMatchCount(LottoRank.NONE)).isEqualTo(1);
     }
 }

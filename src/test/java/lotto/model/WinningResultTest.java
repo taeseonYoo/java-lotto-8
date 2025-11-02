@@ -1,6 +1,7 @@
 package lotto.model;
 
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,7 +15,7 @@ class WinningResultTest {
         //when
         WinningResult winningResult = new WinningResult();
         //then
-        Assertions.assertThat(winningResult.getMatchCount(rank))
+        assertThat(winningResult.getMatchCount(rank))
                 .isEqualTo(0);
     }
 
@@ -27,7 +28,7 @@ class WinningResultTest {
         //when
         winningResult.win(rank);
         //then
-        Assertions.assertThat(winningResult.getMatchCount(rank))
+        assertThat(winningResult.getMatchCount(rank))
                 .isEqualTo(1);
     }
 
@@ -41,6 +42,6 @@ class WinningResultTest {
         //when
         double profitRate = winningResult.calculateProfitRate(money);
         //then
-        Assertions.assertThat(profitRate).isEqualTo((double) 5000 / 8000 * 100);
+        assertThat(profitRate).isEqualTo((double) 5000 / 8000 * 100);
     }
 }

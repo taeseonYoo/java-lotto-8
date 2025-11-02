@@ -1,6 +1,8 @@
 package lotto.infra;
 
 
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.Comparator;
 import java.util.List;
 import lotto.common.constants.LottoRules;
@@ -20,6 +22,6 @@ class RandomNumberGeneratorTest {
                 LottoRules.LOTTO_MAX_NUMBER,
                 LottoRules.LOTTO_COUNT);
         //then
-        Assertions.assertThat(generatedNumbers).isSortedAccordingTo(Comparator.naturalOrder());
+        assertThat(generatedNumbers).isSortedAccordingTo(Comparator.naturalOrder());
     }
 }

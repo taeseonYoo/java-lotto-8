@@ -1,11 +1,10 @@
 package lotto.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.List;
 import lotto.infra.RandomNumberGenerator;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,7 @@ class LottoMachineTest {
         //when
         LottoMachine lottoMachine = LottoMachine.create(money, (min, max, count) -> expectedResult);
         //then
-        Assertions.assertThat(lottoMachine.getHistory().get(0).getNumbers()).isEqualTo(expectedResult);
+        assertThat(lottoMachine.getHistory().get(0).getNumbers()).isEqualTo(expectedResult);
     }
 
     @Test
@@ -31,7 +30,7 @@ class LottoMachineTest {
         //when
         LottoMachine lottoMachine = LottoMachine.create(money, (min, max, count) -> expectedResult);
         //then
-        Assertions.assertThat(lottoMachine.getHistory().get(0).getNumbers())
+        assertThat(lottoMachine.getHistory().get(0).getNumbers())
                 .isEqualTo(lottoMachine.getHistory().get(1).getNumbers());
     }
 
@@ -42,7 +41,7 @@ class LottoMachineTest {
         Money money = new Money(3000);
         LottoMachine lottoMachine = LottoMachine.create(money, new RandomNumberGenerator());
         //then
-        Assertions.assertThat(lottoMachine.getIssuedLottoCount()).isEqualTo(3);
+        assertThat(lottoMachine.getIssuedLottoCount()).isEqualTo(3);
     }
     
 }
